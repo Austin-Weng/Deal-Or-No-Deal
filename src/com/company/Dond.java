@@ -2,11 +2,16 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class Dond {
     JFrame frame;
     JPanel numLeftPanel, numRightPanel, casePanel;
-    JLabel zeroPOne, one, five, ten, twentyFive, fifty, seventyFive, oneHundred, twoHundred, threeHundred, fourHundred, fiveHundred, sevenHundredFifty, oneThousand, fiveThousand, tenThousand, twentyFiveThousand, fiftyThousand, seventyFiveThousand, oneHundredThousand, twoHundredThousand, threeHundredThousand, fourHundredThousand, fiveHundredThousand, seventyFiveHundredThousand, oneMillion;
+    JLabel zeroPOne, one, five, ten, fifty, oneHundred, fiveHundred, oneThousand, fiveThousand, tenThousand, fiftyThousand,oneHundredThousand, fiveHundredThousand, oneMillion;
+    JButton bOne, bTwo, bThree, bFour, bFive, bSix, bSeven, bEight, bNine, bTen, bEleven, bTwelve, bThirteen, bFourteen;
+    Case cOne, cTwo, cThree, cFour, cFive, cSix, cSeven, cEight, cNine, cTen, cEleven, cTwelve, cThirteen, cFourteen;
+
+    private ArrayList<Case> cases;
 
     public Dond() {
         frame = new JFrame("Deal Or No Deal");
@@ -35,45 +40,59 @@ public class Dond {
         ten.setForeground(Color.GREEN);
         numLeftPanel.add(ten);
 
-        twentyFive = new JLabel("$25");
-        twentyFive.setForeground(Color.GREEN);
-        numLeftPanel.add(twentyFive);
-
         fifty = new JLabel("$50");
         fifty.setForeground(Color.GREEN);
         numLeftPanel.add(fifty);
-
-        seventyFive = new JLabel("$75");
-        seventyFive.setForeground(Color.GREEN);
-        numLeftPanel.add(seventyFive);
 
         oneHundred = new JLabel("$100");
         oneHundred.setForeground(Color.GREEN);
         numLeftPanel.add(oneHundred);
 
-        twoHundred = new JLabel("$200");
-        twoHundred.setForeground(Color.GREEN);
-        numLeftPanel.add(twoHundred);
-
-        threeHundred = new JLabel("$300");
-        threeHundred.setForeground(Color.GREEN);
-        numLeftPanel.add(threeHundred);
-
-        fourHundred = new JLabel("$400");
-        fourHundred.setForeground(Color.GREEN);
-        numLeftPanel.add(fourHundred);
-
         fiveHundred = new JLabel("$500");
         fiveHundred.setForeground(Color.GREEN);
         numLeftPanel.add(fiveHundred);
 
-        sevenHundredFifty = new JLabel("$750");
-        sevenHundredFifty.setForeground(Color.GREEN);
-        numLeftPanel.add(sevenHundredFifty);
-
         casePanel = new JPanel();
         casePanel.setLayout(new FlowLayout());
         frame.add(numLeftPanel, BorderLayout.CENTER);
+
+        cOne = new Case(bOne, "zeroPOne");
+        cTwo = new Case(bTwo, "One");
+        cThree = new Case(bThree, "Five");
+        cFour = new Case(bFour, "Ten");
+        cFive = new Case(bFive, "Fifty");
+        cSix = new Case(bSix, "oneHundred");
+        cSeven = new Case(bSeven, "fiveHundred");
+        cEight = new Case(bEight, "onethousand");
+        cNine = new Case(bNine, "fiveThousand");
+        cTen = new Case(bTen, "tenThousand");
+        cEleven = new Case(bEleven, "fiftyThousand");
+        cTwelve = new Case(bTwelve, "oneHundredThousand");
+        cThirteen = new Case(bThirteen, "fiveHundredThousand");
+        cFourteen = new Case(bFourteen, "oneMillion");
+
+        cases.add(cOne);
+        cases.add(cTwo);
+        cases.add(cThree);
+        cases.add(cFour);
+        cases.add(cFive);
+        cases.add(cSix);
+        cases.add(cSeven);
+        cases.add(cEight);
+        cases.add(cNine);
+        cases.add(cTen);
+        cases.add(cEleven);
+        cases.add(cTwelve);
+        cases.add(cThirteen);
+        cases.add(cFourteen);
+
+        for(int i = 0; i < 14; i++){
+            int num1 = (int) (Math.random() * 14 + 1);
+            int num2 = (int) (Math.random() * 14 + 1);
+            Case temp = cases.get(num1);
+            cases.set(num1, cases.get(num2));
+            cases.set(num2, temp);
+        }
 
         numRightPanel = new JPanel();
         numRightPanel.setLayout(new FlowLayout());
