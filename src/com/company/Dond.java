@@ -56,20 +56,20 @@ public class Dond {
         casePanel.setLayout(new FlowLayout());
         frame.add(numLeftPanel, BorderLayout.CENTER);
 
-        cOne = new Case(bOne, "zeroPOne");
-        cTwo = new Case(bTwo, "One");
-        cThree = new Case(bThree, "Five");
-        cFour = new Case(bFour, "Ten");
-        cFive = new Case(bFive, "Fifty");
-        cSix = new Case(bSix, "oneHundred");
-        cSeven = new Case(bSeven, "fiveHundred");
-        cEight = new Case(bEight, "onethousand");
-        cNine = new Case(bNine, "fiveThousand");
-        cTen = new Case(bTen, "tenThousand");
-        cEleven = new Case(bEleven, "fiftyThousand");
-        cTwelve = new Case(bTwelve, "oneHundredThousand");
-        cThirteen = new Case(bThirteen, "fiveHundredThousand");
-        cFourteen = new Case(bFourteen, "oneMillion");
+        cOne = new Case(bOne, zeroPOne);
+        cTwo = new Case(bTwo, one);
+        cThree = new Case(bThree, five);
+        cFour = new Case(bFour, ten);
+        cFive = new Case(bFive, fifty);
+        cSix = new Case(bSix, oneHundred);
+        cSeven = new Case(bSeven, fiveHundred);
+        cEight = new Case(bEight, oneThousand);
+        cNine = new Case(bNine, fiveThousand);
+        cTen = new Case(bTen, tenThousand);
+        cEleven = new Case(bEleven, fiftyThousand);
+        cTwelve = new Case(bTwelve, oneHundredThousand);
+        cThirteen = new Case(bThirteen, fiveHundredThousand);
+        cFourteen = new Case(bFourteen, oneMillion);
 
         cases.add(cOne);
         cases.add(cTwo);

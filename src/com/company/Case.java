@@ -5,19 +5,19 @@ import java.awt.event.*;
 import java.util.*;
 
 public class Case {
-    private String label;
+    private JLabel label;
     private JButton button;
 
-    public Case(JButton button, String label){
+    public Case(JButton button, JLabel label){
         this.button = button;
         this.label = label;
     }
 
-    public String getLabel(){
+    public JLabel getLabel(){
         return label;
     }
 
-    public void setLabel(String label){
+    public void setLabel(JLabel label){
         this.label = label;
     }
 
