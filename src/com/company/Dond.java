@@ -7,13 +7,18 @@ import java.util.*;
 public class Dond implements ActionListener{
     JFrame frame;
     JPanel numLeftPanel, numRightPanel, casePanel, uiPanel;
-    JLabel zeroPOne, one, five, ten, fifty, oneHundred, fiveHundred, oneThousand, fiveThousand, tenThousand, fiftyThousand,oneHundredThousand, fiveHundredThousand, oneMillion;
-    JButton bOne, bTwo, bThree, bFour, bFive, bSix, bSeven, bEight, bNine, bTen, bEleven, bTwelve, bThirteen, bFourteen;
+    JLabel zeroPOne, one, five, ten, fifty, oneHundred, fiveHundred, oneThousand, fiveThousand,
+            tenThousand, fiftyThousand,oneHundredThousand, fiveHundredThousand, oneMillion, instructions, instruction, yourCaseNum, amountInCase;
+    JButton bOne, bTwo, bThree, bFour, bFive, bSix, bSeven, bEight, bNine, bTen, bEleven, bTwelve, bThirteen, bFourteen, keep, takeOffer;
     Case cOne, cTwo, cThree, cFour, cFive, cSix, cSeven, cEight, cNine, cTen, cEleven, cTwelve, cThirteen, cFourteen;
 
     public ArrayList<Case> cases = new ArrayList<Case>();
     int buttonWidth = 80;
     int buttonHeight = 60;
+    int phase = 0;
+    int amountChosen = 0;
+    boolean firstCase = false;
+    String userCase = "";
 
     public Dond() {
         frame = new JFrame("Deal Or No Deal");
@@ -33,6 +38,24 @@ public class Dond implements ActionListener{
 
         uiPanel = new JPanel();
         uiPanel.setLayout(new FlowLayout());
+
+        instructions = new JLabel("Instructions: ");
+        uiPanel.add(instructions);
+
+        instruction = new JLabel("Choose a case!");
+        uiPanel.add(instruction);
+
+        keep = new JButton("Keep Playing");
+        uiPanel.add(keep);
+
+        takeOffer = new JButton("Take Offer");
+        uiPanel.add(takeOffer);
+
+        yourCaseNum = new JLabel("Your case number: ");
+        uiPanel.add(yourCaseNum);
+
+        amountInCase = new JLabel("");
+        uiPanel.add(amountInCase);
 
         zeroPOne = new JLabel("$0.1");
         zeroPOne.setForeground(Color.GREEN);
@@ -209,9 +232,57 @@ public class Dond implements ActionListener{
         frame.add(numLeftPanel, BorderLayout.WEST);
         frame.add(numRightPanel, BorderLayout.EAST);
         frame.add(casePanel, BorderLayout.CENTER);
+        frame.add(uiPanel, BorderLayout.SOUTH);
+        frame.pack();
     }
 
     public void actionPerformed(ActionEvent e) {
+        if (phase == 0) {
+            checkFirstCase(e);
+        }
+        if (phase == 1){
+            phase1(e);
+        }
 
+    }
+
+    public void buttonPressed (Case casePressed){
+        casePressed.setBeenPressed(true);
+        casePressed.getButton().setBackground(Color.RED);
+    }
+
+    public void checkFirstCase(ActionEvent e){
+        if (!firstCase) {
+            for (Case aCase : cases) {
+                if (e.getSource() == aCase.getButton()) {
+                    firstCase = true;
+                    userCase = aCase.getLabel().getText();
+                    phase = 1;
+                    yourCaseNum.setText("Your case number: " + aCase.getButton().getText());
+                }
+            }
+        }
+    }
+
+    public void phase1(ActionEvent e){
+        while (amountChosen < 4) {
+            instruction.setText("Choose " + amountChosen + " more cases");
+            System.out.println("working 1");
+            System.out.println(amountChosen);
+            for (Case aCase : cases) {
+                if (!aCase.getBeenPressed()) {
+                    System.out.println("working 2");
+                    if (e.getActionCommand().equals(aCase.getButton().getText())) {
+                        System.out.println("working 3");
+                        buttonPressed(aCase);
+                        amountInCase.setText("Amount in case: " + aCase.getLabel());
+                        amountChosen++;
+                        break;
+                    }
+                }
+            }
+        }
+        amountChosen = 0;
+        phase = 2;
     }
 }
