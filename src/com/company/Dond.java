@@ -3,12 +3,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Dond implements ActionListener{
     JFrame frame;
-    JPanel numLeftPanel, numRightPanel, casePanel, uiPanel;
+    JPanel numLeftPanel, numRightPanel, casePanel, uiPanel, bankerPanel;
     JLabel zeroPOne, one, five, ten, fifty, oneHundred, fiveHundred, oneThousand, fiveThousand,
-            tenThousand, fiftyThousand,oneHundredThousand, fiveHundredThousand, oneMillion, instructions, instruction, yourCaseNum, amountInCase;
+            tenThousand, fiftyThousand,oneHundredThousand, fiveHundredThousand, oneMillion, instructions, instruction, yourCaseNum, amountInCase, bankerOffer;
     JButton bOne, bTwo, bThree, bFour, bFive, bSix, bSeven, bEight, bNine, bTen, bEleven, bTwelve, bThirteen, bFourteen, keep, takeOffer;
     Case cOne, cTwo, cThree, cFour, cFive, cSix, cSeven, cEight, cNine, cTen, cEleven, cTwelve, cThirteen, cFourteen;
 
@@ -17,8 +18,9 @@ public class Dond implements ActionListener{
     int buttonHeight = 60;
     int phase = 0;
     int amountChosen = 0;
+    int amountOffered1 = (int) (Math.random() * 90000 + 10000);
     boolean firstCase = false;
-    String userCase = "";
+    Case userCase;
 
     public Dond() {
         frame = new JFrame("Deal Or No Deal");
@@ -39,20 +41,31 @@ public class Dond implements ActionListener{
         uiPanel = new JPanel();
         uiPanel.setLayout(new FlowLayout());
 
+        bankerPanel = new JPanel();
+        bankerPanel.setLayout(new BoxLayout(bankerPanel, BoxLayout.Y_AXIS));
+        uiPanel.add(bankerPanel);
+
         instructions = new JLabel("Instructions: ");
         uiPanel.add(instructions);
 
         instruction = new JLabel("Choose a case!");
         uiPanel.add(instruction);
 
-        keep = new JButton("Keep Playing");
-        uiPanel.add(keep);
-
-        takeOffer = new JButton("Take Offer");
-        uiPanel.add(takeOffer);
-
         yourCaseNum = new JLabel("Your case number: ");
         uiPanel.add(yourCaseNum);
+
+        bankerOffer = new JLabel("");
+        bankerPanel.add(bankerOffer);
+
+        keep = new JButton("Keep Playing");
+        keep.addActionListener(this);
+
+
+        takeOffer = new JButton("Take Offer");
+        takeOffer.addActionListener(this);
+
+        bankerPanel.add(takeOffer);
+        bankerPanel.add(keep);
 
         amountInCase = new JLabel("");
         uiPanel.add(amountInCase);
@@ -233,15 +246,31 @@ public class Dond implements ActionListener{
         frame.add(numRightPanel, BorderLayout.EAST);
         frame.add(casePanel, BorderLayout.CENTER);
         frame.add(uiPanel, BorderLayout.SOUTH);
-        frame.pack();
+        frame.setSize(600,300);
     }
 
     public void actionPerformed(ActionEvent e) {
         if (phase == 0) {
+            System.out.println("In phase 0");
             checkFirstCase(e);
-        }
-        if (phase == 1){
+        } else if (phase == 1){
+            System.out.println("In phase 1");
             phase1(e);
+        } else if (phase == 2) {
+            System.out.println("In phase 2");
+            phase2(e);
+        } else if (phase == 3) {
+            System.out.println("In phase 3");
+            phase3(e);
+        } else if (phase == 4) {
+            System.out.println("In phase 4");
+            phase4(e);
+        } else if (phase == 5) {
+            System.out.println("In phase 5");
+            phase5(e);
+        } else if (phase == 6) {
+            System.out.println("In phase 6");
+            phase6(e);
         }
 
     }
@@ -249,40 +278,120 @@ public class Dond implements ActionListener{
     public void buttonPressed (Case casePressed){
         casePressed.setBeenPressed(true);
         casePressed.getButton().setBackground(Color.RED);
+        casePressed.getLabel().setForeground(Color.RED);
     }
 
     public void checkFirstCase(ActionEvent e){
-        if (!firstCase) {
             for (Case aCase : cases) {
                 if (e.getSource() == aCase.getButton()) {
-                    firstCase = true;
-                    userCase = aCase.getLabel().getText();
-                    phase = 1;
+                    aCase.getButton().setBackground(Color.RED);
+                    userCase = aCase;
+                    userCase.setBeenPressed(true);
+                    instruction.setText("Choose " + (3 - amountChosen) + " more cases to eliminate");
                     yourCaseNum.setText("Your case number: " + aCase.getButton().getText());
+                    phase = 1;
                 }
             }
-        }
     }
 
     public void phase1(ActionEvent e){
-        while (amountChosen < 4) {
-            instruction.setText("Choose " + amountChosen + " more cases");
-            System.out.println("working 1");
-            System.out.println(amountChosen);
-            for (Case aCase : cases) {
-                if (!aCase.getBeenPressed()) {
-                    System.out.println("working 2");
-                    if (e.getActionCommand().equals(aCase.getButton().getText())) {
-                        System.out.println("working 3");
-                        buttonPressed(aCase);
-                        amountInCase.setText("Amount in case: " + aCase.getLabel());
-                        amountChosen++;
+        for (Case aCase : cases) {
+//            System.out.println(amountChosen);
+            if (!aCase.getBeenPressed()) {
+                if (e.getSource() == aCase.getButton()) {
+                    buttonPressed(aCase);
+                    amountInCase.setText("Amount in case: " + aCase.getLabel());
+                    amountChosen++;
+                    instruction.setText("Choose " + (3 - amountChosen) + " more cases to eliminate");
+                    if (amountChosen == 3){
+                        bankerOffer.setText("Banker Offfer: $" + amountOffered1);
+                        instruction.setText("Take banker offer or keep playing?");
+                        amountChosen = 0;
+                        phase = 2;
                         break;
                     }
                 }
             }
         }
-        amountChosen = 0;
-        phase = 2;
+    }
+
+    public void phase2(ActionEvent e) {
+        instruction.setText("Take banker offer or keep playing?");
+
+        if (e.getSource() == takeOffer){
+            showMessageDialog(null, "Congrats! you won: " + amountOffered1 + ", Your case had: " + userCase.getLabel().getText());
+        } else if (e.getSource() == keep) {
+            instruction.setText("Choose " + (3 - amountChosen) + " more cases to eliminate");
+            phase = 3;
+        }
+    }
+
+    public void phase3 (ActionEvent e){
+        for (Case aCase : cases) {
+//            System.out.println(amountChosen);
+            if (!aCase.getBeenPressed()) {
+                if (e.getSource() == aCase.getButton()) {
+                    buttonPressed(aCase);
+                    amountInCase.setText("Amount in case: " + aCase.getLabel());
+                    amountChosen++;
+                    instruction.setText("Choose " + (3 - amountChosen) + " more cases to eliminate");
+                    if (amountChosen == 3){
+                        amountChosen = 0;
+                        bankerOffer.setText("Banker Offer: $" + amountOffered1);
+                        instruction.setText("Take banker offer or keep playing?");
+                        phase = 4;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    public void phase4(ActionEvent e) {
+        instruction.setText("Take banker offer or keep playing?");
+        amountOffered1 = (int) (Math.random() * 150000 + 50000);
+        if (e.getSource() == takeOffer){
+            showMessageDialog(null, "Congrats! you won: " + amountOffered1 + ", Your case had: " + userCase.getLabel().getText());
+        } else if (e.getSource() == keep) {
+            instruction.setText("Choose " + (3 - amountChosen) + " more cases to eliminate");
+            phase = 5;
+        }
+    }
+
+    public void phase5 (ActionEvent e){
+        for (Case aCase : cases) {
+//            System.out.println(amountChosen);
+            if (!aCase.getBeenPressed()) {
+                if (e.getSource() == aCase.getButton()) {
+                    buttonPressed(aCase);
+                    amountInCase.setText("Amount in case: " + aCase.getLabel());
+                    amountChosen++;
+                    instruction.setText("Choose " + (3 - amountChosen) + " more cases to eliminate");
+                    if (amountChosen == 3){
+                        amountChosen = 0;
+                        bankerOffer.setText("Banker Offer: $" + amountOffered1);
+                        instruction.setText("Take banker offer or keep playing?");
+                        keep.setText("Win your case");
+                        phase = 6;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public void phase6(ActionEvent e) {
+        instruction.setText("Take banker offer or keep playing?");
+        amountOffered1 = (int) (Math.random() * 200000 + 50000);
+        if (e.getSource() == takeOffer){
+            showMessageDialog(null, "Congrats! you won: " + amountOffered1 + ", Your case had: " + userCase.getLabel().getText());
+        } else if (e.getSource() == keep) {
+            String remaining = "";
+            for (Case aCase : cases){
+                if (!aCase.getBeenPressed()){
+                    remaining += aCase.getButton().getText() + ": " + aCase.getLabel().getText() + "\n";
+                }
+            }
+            showMessageDialog(null, "Your case had: " + userCase.getLabel().getText() + "\n The remaining cases: \n" + remaining);
+        }
     }
 }
