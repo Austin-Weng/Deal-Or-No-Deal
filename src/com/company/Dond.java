@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.ImageIcon;
 
 public class Dond implements ActionListener{
     JFrame frame;
@@ -13,12 +14,18 @@ public class Dond implements ActionListener{
     JButton bOne, bTwo, bThree, bFour, bFive, bSix, bSeven, bEight, bNine, bTen, bEleven, bTwelve, bThirteen, bFourteen, keep, takeOffer;
     Case cOne, cTwo, cThree, cFour, cFive, cSix, cSeven, cEight, cNine, cTen, cEleven, cTwelve, cThirteen, cFourteen;
 
+    ImageIcon icon = new ImageIcon("src/pixelCase (1).png");
+    Image img = icon.getImage();
+    Image newImg = img.getScaledInstance(80, 60, java.awt.Image.SCALE_SMOOTH);
+    ImageIcon icon1 = new ImageIcon(newImg);
     public ArrayList<Case> cases = new ArrayList<Case>();
     int buttonWidth = 80;
     int buttonHeight = 60;
     int phase = 0;
     int amountChosen = 0;
     int amountOffered1 = (int) (Math.random() * 90000 + 10000);
+    int amountOffered2 = (int) (Math.random() * 150000 + 30000);
+    int amountOffered3 = (int) (Math.random() * 150000 + 50000);
     boolean firstCase = false;
     Case userCase;
 
@@ -26,7 +33,7 @@ public class Dond implements ActionListener{
         frame = new JFrame("Deal Or No Deal");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
-        frame.setSize(500, 400);
+        frame.setSize(700, 600);
         frame.setVisible(true);
 
         numLeftPanel = new JPanel();
@@ -130,73 +137,87 @@ public class Dond implements ActionListener{
         casePanel.setLayout(new FlowLayout());
         frame.add(numLeftPanel, BorderLayout.CENTER);
 
-        bOne = new JButton("1");
+        bOne = new JButton("1", icon1);
+        bOne.setVerticalTextPosition(SwingConstants.BOTTOM);
+        bOne.setHorizontalTextPosition(SwingConstants.CENTER);
         bOne.addActionListener( this);
-        bOne.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
         casePanel.add(bOne);
 
-        bTwo = new JButton("2");
-        bTwo.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        bTwo = new JButton("2", icon1);
+        bTwo.setVerticalTextPosition(SwingConstants.BOTTOM);
+        bTwo.setHorizontalTextPosition(SwingConstants.CENTER);
         bTwo.addActionListener( this);
         casePanel.add(bTwo);
 
-        bThree = new JButton("3");
-        bThree.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        bThree = new JButton("3" , icon1);
+        bThree.setVerticalTextPosition(SwingConstants.BOTTOM);
+        bThree.setHorizontalTextPosition(SwingConstants.CENTER);
         bThree.addActionListener( this);
         casePanel.add(bThree);
 
-        bFour = new JButton("4");
-        bFour.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        bFour = new JButton("4", icon1);
+        bFour.setVerticalTextPosition(SwingConstants.BOTTOM);
+        bFour.setHorizontalTextPosition(SwingConstants.CENTER);
         bFour.addActionListener( this);
         casePanel.add(bFour);
 
-        bFive = new JButton("5");
-        bFive.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        bFive = new JButton("5", icon1);
+        bFive.setVerticalTextPosition(SwingConstants.BOTTOM);
+        bFive.setHorizontalTextPosition(SwingConstants.CENTER);
         bFive.addActionListener( this);
         casePanel.add(bFive);
 
-        bSix = new JButton("6");
-        bSix.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        bSix = new JButton("6", icon1);
+        bSix.setVerticalTextPosition(SwingConstants.BOTTOM);
+        bSix.setHorizontalTextPosition(SwingConstants.CENTER);
         bSix.addActionListener( this);
         casePanel.add(bSix);
 
-        bSeven = new JButton("7");
-        bSeven.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        bSeven = new JButton("7", icon1);
+        bSeven.setVerticalTextPosition(SwingConstants.BOTTOM);
+        bSeven.setHorizontalTextPosition(SwingConstants.CENTER);
         bSeven.addActionListener( this);
         casePanel.add(bSeven);
 
-        bEight = new JButton("8");
-        bEight.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        bEight = new JButton("8", icon1);
+        bEight.setVerticalTextPosition(SwingConstants.BOTTOM);
+        bEight.setHorizontalTextPosition(SwingConstants.CENTER);
         bEight.addActionListener( this);
         casePanel.add(bEight);
 
-        bNine = new JButton("9");
-        bNine.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        bNine = new JButton("9", icon1);
+        bNine.setVerticalTextPosition(SwingConstants.BOTTOM);
+        bNine.setHorizontalTextPosition(SwingConstants.CENTER);
         bNine.addActionListener( this);
         casePanel.add(bNine);
 
-        bTen = new JButton("10");
-        bTen.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        bTen = new JButton("10", icon1);
+        bTen.setVerticalTextPosition(SwingConstants.BOTTOM);
+        bTen.setHorizontalTextPosition(SwingConstants.CENTER);
         bTen.addActionListener( this);
         casePanel.add(bTen);
 
-        bEleven = new JButton("11");
-        bEleven.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        bEleven = new JButton("11", icon1);
+        bEleven.setVerticalTextPosition(SwingConstants.BOTTOM);
+        bEleven.setHorizontalTextPosition(SwingConstants.CENTER);
         bEleven.addActionListener( this);
         casePanel.add(bEleven);
 
-        bTwelve = new JButton("12");
-        bTwelve.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        bTwelve = new JButton("12", icon1);
+        bTwelve.setVerticalTextPosition(SwingConstants.BOTTOM);
+        bTwelve.setHorizontalTextPosition(SwingConstants.CENTER);
         bTwelve.addActionListener( this);
         casePanel.add(bTwelve);
 
-        bThirteen = new JButton("13");
-        bThirteen.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        bThirteen = new JButton("13", icon1);
+        bThirteen.setVerticalTextPosition(SwingConstants.BOTTOM);
+        bThirteen.setHorizontalTextPosition(SwingConstants.CENTER);
         bThirteen.addActionListener( this);
         casePanel.add(bThirteen);
 
-        bFourteen = new JButton("14");
-        bFourteen.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        bFourteen = new JButton("14", icon1);
+        bFourteen.setVerticalTextPosition(SwingConstants.BOTTOM);
+        bFourteen.setHorizontalTextPosition(SwingConstants.CENTER);
         bFourteen.addActionListener( this);
         casePanel.add(bFourteen);
 
@@ -246,7 +267,7 @@ public class Dond implements ActionListener{
         frame.add(numRightPanel, BorderLayout.EAST);
         frame.add(casePanel, BorderLayout.CENTER);
         frame.add(uiPanel, BorderLayout.SOUTH);
-        frame.setSize(600,300);
+        frame.setSize(600,500);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -337,7 +358,10 @@ public class Dond implements ActionListener{
                     instruction.setText("Choose " + (3 - amountChosen) + " more cases to eliminate");
                     if (amountChosen == 3){
                         amountChosen = 0;
-                        bankerOffer.setText("Banker Offer: $" + amountOffered1);
+                        while (amountOffered2 < amountOffered1) {
+                            amountOffered2 = (int) (Math.random() * 150000 + 30000);
+                        }
+                        bankerOffer.setText("Banker Offer: $" + amountOffered2);
                         instruction.setText("Take banker offer or keep playing?");
                         phase = 4;
                         break;
@@ -348,9 +372,8 @@ public class Dond implements ActionListener{
     }
     public void phase4(ActionEvent e) {
         instruction.setText("Take banker offer or keep playing?");
-        amountOffered1 = (int) (Math.random() * 150000 + 50000);
         if (e.getSource() == takeOffer){
-            showMessageDialog(null, "Congrats! you won: " + amountOffered1 + ", Your case had: " + userCase.getLabel().getText());
+            showMessageDialog(null, "Congrats! you won: " + amountOffered2 + ", Your case had: " + userCase.getLabel().getText());
         } else if (e.getSource() == keep) {
             instruction.setText("Choose " + (3 - amountChosen) + " more cases to eliminate");
             phase = 5;
@@ -368,8 +391,11 @@ public class Dond implements ActionListener{
                     instruction.setText("Choose " + (3 - amountChosen) + " more cases to eliminate");
                     if (amountChosen == 3){
                         amountChosen = 0;
-                        bankerOffer.setText("Banker Offer: $" + amountOffered1);
-                        instruction.setText("Take banker offer or keep playing?");
+                        while (amountOffered3 < amountOffered2) {
+                            amountOffered3 = (int) (Math.random() * 150000 + 50000);
+                        }
+                        bankerOffer.setText("Banker Offer: $" + amountOffered3);
+                        instruction.setText("Take banker offer or win your case?");
                         keep.setText("Win your case");
                         phase = 6;
                         break;
@@ -380,18 +406,14 @@ public class Dond implements ActionListener{
     }
 
     public void phase6(ActionEvent e) {
-        instruction.setText("Take banker offer or keep playing?");
+        instruction.setText("Take banker offer or win your case?");
         amountOffered1 = (int) (Math.random() * 200000 + 50000);
         if (e.getSource() == takeOffer){
-            showMessageDialog(null, "Congrats! you won: " + amountOffered1 + ", Your case had: " + userCase.getLabel().getText());
+            frame.setVisible(false);
+            showMessageDialog(null, "Congrats! you won: $" + amountOffered1 + ", Your case had: " + userCase.getLabel().getText());
         } else if (e.getSource() == keep) {
-            String remaining = "";
-            for (Case aCase : cases){
-                if (!aCase.getBeenPressed()){
-                    remaining += aCase.getButton().getText() + ": " + aCase.getLabel().getText() + "\n";
-                }
-            }
-            showMessageDialog(null, "Your case had: " + userCase.getLabel().getText() + "\n The remaining cases: \n" + remaining);
+            frame.setVisible(false);
+            showMessageDialog(null, "Your case had: " + userCase.getLabel().getText() + "\n Banker Offer: $" + amountOffered3);
         }
     }
 }
