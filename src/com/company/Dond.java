@@ -340,7 +340,7 @@ public class Dond implements ActionListener{
         instruction.setText("Take banker offer or keep playing?");
 
         if (e.getSource() == takeOffer){
-            showMessageDialog(null, "Congrats! you won: " + amountOffered1 + ", Your case had: " + userCase.getLabel().getText());
+            showMessageDialog(null, "Congrats! you won: $" + amountOffered1 + ", Your case had: " + userCase.getLabel().getText());
         } else if (e.getSource() == keep) {
             instruction.setText("Choose " + (3 - amountChosen) + " more cases to eliminate");
             phase = 3;
@@ -373,7 +373,7 @@ public class Dond implements ActionListener{
     public void phase4(ActionEvent e) {
         instruction.setText("Take banker offer or keep playing?");
         if (e.getSource() == takeOffer){
-            showMessageDialog(null, "Congrats! you won: " + amountOffered2 + ", Your case had: " + userCase.getLabel().getText());
+            showMessageDialog(null, "Congrats! you won: $" + amountOffered2 + ", Your case had: " + userCase.getLabel().getText());
         } else if (e.getSource() == keep) {
             instruction.setText("Choose " + (3 - amountChosen) + " more cases to eliminate");
             phase = 5;
